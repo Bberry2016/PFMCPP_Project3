@@ -196,53 +196,53 @@ Part 1b - Step 2: Assignment
         c) pick properties that can eventually be represented with 
         'int float double bool char std::string'.
 
-Thing 1)
+Thing 1) Keyboard
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) midi output
+    2) volume control
+    3) modulation
+    4) keys
+    5) sustain pedal
 3 things it can do:
-    1)
-    2)
-    3)
+    1) adjust volume of notes being played
+    2) pitch shift notes being played
+    3) increase duration of notes being played
 
-Thing 2)
+Thing 2) Electric Guitar
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) pickup
+    2) tremolo bar
+    3) strings
+    4) tone knob
+    5) pickup selector
 3 things it can do:
-    1)
-    2)
-    3)
+    1) capture string vibrations
+    2) dial in/out treble frequencies
+    3) adjust string tension
 
-Thing 3)
+Thing 3) Washing Machine            
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) power supply
+    2) cycle selection
+    3) door
+    4) cold/hot water hoses
+    5) drum
 3 things it can do:
-    1)
-    2)
-    3)
+    1) seal in moisture and detergent
+    2) indicate load characteristics
+    3) procure optimal temperature water
 
-Thing 4)
+Thing 4) Refridgerator
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) ice maker
+    2) crisper drawer    
+    3) water dispenser
+    4) light switch
+    5) thermostat control
 3 things it can do:
-    1)
-    2)
-    3)
+    1) optimize humidity level for produce
+    2) illuminate refridgerator when door is opened
+    3) indicate temperature 
 */
 
 /*
