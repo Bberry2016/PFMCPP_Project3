@@ -337,17 +337,17 @@ Define an object that is made of 5 sub-objects.
     These 5 sub-objects will not be defined using Primitives, but instead will be their own UDTs 
     you'll define these 5 sub-objects in Part 1d.
 
-Thing 10)
+Thing 10) Arcade Machine
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Display
+    2) Controls
+    3) Arcade Box
+    4) Speakers
+    5) coin box
 3 things it can do:
-    1)
-    2)
-    3)
+    1) move characters
+    2) make sound
+    3) collect money
  */
 
  /*
