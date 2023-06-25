@@ -455,15 +455,18 @@ struct Keyboard
     //    - volume (double)
     double volume = 9.797;
     //    - amount of modulation (float)
-    float amtModulation = 2.3;
+    float amtModulation = 2.f;
     //    - number of keys (int)
     int numKeys = 88;
     //    - sustain (double)
-    double sustain = 4.66663;
+    double amtSustain = 4.66663;
     //3 things it can do:
-    //    - adjust volume of notes being played
-    //    - pitch shift notes being played
+    //    - adjust volume of notes being played    // Difference in initial volume setting and volume end value
+    double adjustVolume(double volumeKnobDiff);
+    //    - pitch shift notes being played    // Shirt from initial pitch based on note played with no modulation
+    float pitchShift(float intendedPitch = 0);
     //    - increase duration of notes being played
+    void sustian();
 };
 
 /*
@@ -497,8 +500,11 @@ struct ElectricGuitar
     int pickupSelection = 3;
     //3 things it can do:
     //    - capture string vibrations
-    //    - dial in/out treble frequencies
-    //    - adjust string tension
+    void readVibration();
+    //    - dial in/out treble frequencies    // Select treble frequency level
+    int selectTone(int initToneValue);
+    //    - adjust string tension    // Returns difference of string tension before and after use of tremolo bar
+    float stringTension(float initStringTension);
 };
 
 /*
@@ -521,19 +527,22 @@ struct WashingMachine
 {
     //5 properties:
     //    - power supply (float)
-    float powerUsedInAmps = 13.4;
+    float powerInAmps = 13.f;
     //    - cycle selection (int)
     int cycleSelection = 8;
     //    - door open/closed (bool)
     bool doorOpen = false;
     //    - amount of cold/hot water (float)
-    float waterTemperature = 77.95;
+    float waterTemperature = 77.f;
     //    - drum rotation speed (double)
     double drumRotationSpeed = 27.6435;
     //3 things it can do:
     //    - seal in moisture and detergent
-    //    - indicate load characteristics
-    //    - procure optimal temperature water
+    void seal();
+    //    - indicate load characteristics    // Indicates type of load 
+    int typeOfLaundry();
+    //    - procure optimal temperature water    // Adjusts water temperature based on load type
+    float optimizeWaterTemp(int laundryType);
 };
 
 /*
@@ -558,7 +567,7 @@ struct Refridgerator
     //    - amount of ice cubes produced (int)
     int amtIceCubesPerHour = 25;
     //    - crisper drawer humidity (float)
-    float crisperDrawerHumidity = 0.72;
+    float crisperDrawerHumidity = 0.f;
     //    - water temperature (int)
     int waterTemp = 62;
     //    - type of ice dispensed (int)
@@ -566,9 +575,12 @@ struct Refridgerator
     //    - thermostat set value (float)
     float fridgeTemp = 35.75;
     //3 things it can do:
-    //    - optimize humidity level for produce
-    //    - illuminate refridgerator when door is opened
+    //    - optimize humidity level for produce    // Adjusts crisper drawer humidity to optimum level for produce
+    float optimizeHumidity();
+    //    - illuminate refridgerator when door is opened    
+    void illuminate();
     //    - indicate temperature 
+    float indicateFridgeTemp();
 };
 
 /*
@@ -601,9 +613,12 @@ struct Display
     //    - refresh rate (double)
     double refreshRate = 200.0009;
     //3 things it can do:
-    //    - adjust color hue and saturation for different environments
-    //    - adjust level of illumination dependent on room brightness
-    //    - adjust size of text, display size and other items
+    //    - adjust color hue and saturation for different environments    // Selects from array of color modes
+    int selectColorMode();
+    //    - adjust level of illumination dependent on room brightness    // Modifys display brightenss based on brightness in room
+    double variableIllumniation(double roomBrightness);
+    //    - adjust size of text, display size and other items    // Selects display preset based on desired screen settings
+    int modifyDisplayCharacteristics(int textSize, int orientation, float screenArea);
 };
 
 /*
@@ -637,8 +652,11 @@ struct Controls
     int buttonFunction = 9;
     //3 things it can do:
     //    - assign the functionality of a button or joystick
-    //    - compensate for delay
-    //    - adjust the distance traveled by a cursor/character based on joystick movement 
+    void buttonAssignment();
+    //    - compensate for delay    // Calibrates control to combat latency
+    float delayComp(float timeButtonPressed, float timeActionExecuted);
+    //    - adjust the distance traveled by a cursor/character based on joystick movement    // Defines amount of movement needed to get from point A to point B
+    double adjustCharacterSpeed(int xPointA, int yPointA, int xPointB, int yPointB, bool joyStickEngaged = false);
 };
 
 /*
@@ -665,15 +683,18 @@ struct ArcadeBox
     //    - number of openings (int)
     int numOpenings = 4;
     //    - weight (float)
-    float weight = 123.4;
+    float weight = 123.f;
     //    - style (std::string)
     std::string style = "Upright";
     //    - number of panels (int)
     int numPanels = 5;
     //3 things it can do:
     //    - store display and hardware
+    void storeStructHere();
     //    - allow access to hardware 
+    void openBackPanel();
     //    - disassemblable for transport
+    void disassemble();
 };
 
 /*
@@ -686,7 +707,7 @@ Thing 8) Speakers
     4) right speaker output (double)
     5) mono audio (int)
 3 things it can do:
-    1) adjust volume
+    1) adjust volume    
     2) change input device/where sound is coming from
     3) combine sound coming from L/R speakers
 
@@ -706,9 +727,12 @@ struct Speakers
     //    - mono audio (int)
     int monoAudio = 0;
     //3 things it can do:
-    //    - adjust volume
+    //    - adjust volume    // Difference in initial volume setting and volume end value
+    double adjustVolume(double volumeKnobDiff);
     //    - change input device/where sound is coming from
+    void selectInputDevice();
     //    - combine sound coming from L/R speakers
+    void selectMonoAudio();
 };
 
 /*
@@ -735,15 +759,18 @@ struct CoinBox
     //    - amount of coin stored (int)
     int amtCoinStored = 134;
     //    - coin slot size (float)
-    float coinSlotSize = 0.958;
+    double coinSlotSize = 0.958;
     //    - amount of change backed-up (int)
     int amtBackedUpChange = 2;
     //    - coin detector switch (bool)
     bool quarterDetected = true;
     //3 things it can do:
-    //    - detect type of coin inserted
+    //    - detect type of coin inserted    // Indicate what type of coin was inserted based on height and weight
+    int detectCoinType(int coinHeight, int coinWeight);
     //    - store change
+    void storeChange();
     //    - return coins when not accepted
+    void returnCoin();
 };
 
 /*
@@ -771,9 +798,12 @@ struct ArcadeMachine
     //    - Speakers
     //    - Coin Box
     //3 things it can do:
-    //    - move characters
+    //    - move characters    // Moves character from point A to point B when a joystick is used
+    double moveCharacter(bool joyStickEngaged, int xPointA, int yPointA, int xPointB, int yPointB, double joyStickDirection = 0);
     //    - make sound
+    void makeSound();
     //    - collect money
+    void collectMoney();
 };
 
 /*
