@@ -449,7 +449,16 @@ Thing 1) Keyboard
 
 struct Keyboard 
 {
-
+    //5 properties:
+    //    - midi device (std::string)
+    //    - volume (double)
+    //    - amount of modulation (float)
+    //    - number of keys (int)
+    //    - sustain (double)
+    //3 things it can do:
+    //    - adjust volume of notes being played
+    //    - pitch shift notes being played
+    //    - increase duration of notes being played
 };
 
 /*
@@ -470,7 +479,16 @@ Thing 2) Electric Guitar
 
 struct ElectricGuitar 
 {
-
+    //5 properties:
+    //    - amount of pickups (int) 
+    //    - tremolo bar position (int)
+    //    - string vibration (double)
+    //    - tone knob (int)
+    //    - pickup selector (int)
+    //3 things it can do:
+    //    - capture string vibrations
+    //    - dial in/out treble frequencies
+    //    - adjust string tension
 };
 
 /*
@@ -491,7 +509,16 @@ Thing 3) Washing Machine
 
 struct WashingMachine 
 {
-
+    //5 properties:
+    //    - power supply (float)
+    //    - cycle selection (int)
+    //    - door open/closed (bool)
+    //    - amount of cold/hot water (float)
+    //    - drum rotation speed (double)
+    //3 things it can do:
+    //    - seal in moisture and detergent
+    //    - indicate load characteristics
+    //    - procure optimal temperature water
 };
 
 /*
@@ -512,7 +539,16 @@ Thing 4) Refridgerator
 
 struct Refridgerator
 {
-
+    //5 properties:
+    //    - amount of ice cubes produced (int)
+    //    - crisper drawer humidity (float)
+    //    - water temperature (int)
+    //    - type of ice dispensed (int)
+    //    - thermostat set value (float)
+    //3 things it can do:
+    //    - optimize humidity level for produce
+    //    - illuminate refridgerator when door is opened
+    //    - indicate temperature 
 };
 
 /*
@@ -533,7 +569,16 @@ Thing 5) Display
 
 struct Display 
 {
-
+    //5 properties:
+    //    - brightness (double)
+    //    - color mode (int)
+    //    - x-scale (int)
+    //    - y-scale (int)
+    //    - refresh rate (double)
+    //3 things it can do:
+    //    - adjust color hue and saturation for different environments
+    //    - adjust level of illumination dependent on room brightness
+    //    - adjust size of text, display size and other items
 };
 
 /*
@@ -554,7 +599,16 @@ Thing 6) Controls
 
 struct Controls 
 {
-
+    //5 properties:
+    //    - x-axis calibration (float)
+    //    - y-axis calibration (float)
+    //    - cursor speed (double)
+    //    - button (char)
+    //    - button function assignment (int)
+    //3 things it can do:
+    //    - assign the functionality of a button or joystick
+    //    - compensate for delay
+    //    - adjust the distance traveled by a cursor/character based on joystick movement 
 };
 
 /*
@@ -575,7 +629,16 @@ Thing 7) Arcade Box
 
 struct ArcadeBox 
 {
-
+    //5 properties:
+    //    - storage location (int)
+    //    - number of openings (int)
+    //    - weight (float)
+    //    - style (std::string)
+    //    - number of panels (int)
+    //3 things it can do:
+    //    - store display and hardware
+    //    - allow access to hardware 
+    //    - disassemblable for transport
 };
 
 /*
@@ -596,7 +659,16 @@ Thing 8) Speakers
 
 struct Speakers 
 {
-
+    //5 properties:
+    //    - volume (float)
+    //    - input device (int)
+    //    - left speaker output (double)
+    //    - right speaker output (double)
+    //    - mono audio (int)
+    //3 things it can do:
+    //    - adjust volume
+    //    - change input device/where sound is coming from
+    //    - combine sound coming from L/R speakers
 };
 
 /*
@@ -617,7 +689,16 @@ Thing 9) Coin Box
 
 struct CoinBox 
 {
-
+    //5 properties:
+    //    - coin return (bool)
+    //    - amount of coin stored (int)
+    //    - coin slot size (float)
+    //    - amount of change backed-up (int)
+    //    - coin detector switch (bool)
+    //3 things it can do:
+    //    - detect type of coin inserted
+    //    - store change
+    //    - return coins when not accepted
 };
 
 /*
@@ -638,7 +719,16 @@ Thing 10) Arcade Machine
 
 struct ArcadeMachine 
 {
-
+    //5 properties:
+    //    - Display
+    //    - Controls
+    //    - Arcade Box
+    //    - Speakers
+    //    - Coin Box
+    //3 things it can do:
+    //    - move characters
+    //    - make sound
+    //    - collect money
 };
 
 /*
