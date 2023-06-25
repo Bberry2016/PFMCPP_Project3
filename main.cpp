@@ -451,10 +451,15 @@ struct Keyboard
 {
     //5 properties:
     //    - midi device (std::string)
+    std::string midiDevice = "akai";
     //    - volume (double)
+    double volume = 9.797;
     //    - amount of modulation (float)
+    float amtModulation = 2.3;
     //    - number of keys (int)
+    int numKeys = 88;
     //    - sustain (double)
+    double sustain = 4.66663;
     //3 things it can do:
     //    - adjust volume of notes being played
     //    - pitch shift notes being played
@@ -465,7 +470,7 @@ struct Keyboard
 
 Thing 2) Electric Guitar
 5 properties:
-    1) amount of pickups (int) 
+    1) amount of pickups (int)
     2) tremolo bar position (int)
     3) string vibration (double)
     4) tone knob (int)
@@ -481,10 +486,15 @@ struct ElectricGuitar
 {
     //5 properties:
     //    - amount of pickups (int) 
+    int amtPickups = 2;
     //    - tremolo bar position (int)
+    int tremoloBarPosition = -2;
     //    - string vibration (double)
+    double stringVibration = 82.947;
     //    - tone knob (int)
+    int toneKnobPosition = 0;
     //    - pickup selector (int)
+    int pickupSelection = 3;
     //3 things it can do:
     //    - capture string vibrations
     //    - dial in/out treble frequencies
@@ -511,10 +521,15 @@ struct WashingMachine
 {
     //5 properties:
     //    - power supply (float)
+    float powerUsedInAmps = 13.4;
     //    - cycle selection (int)
+    int cycleSelection = 8;
     //    - door open/closed (bool)
+    bool doorOpen = false;
     //    - amount of cold/hot water (float)
+    float waterTemperature = 77.95;
     //    - drum rotation speed (double)
+    double drumRotationSpeed = 27.6435;
     //3 things it can do:
     //    - seal in moisture and detergent
     //    - indicate load characteristics
@@ -541,10 +556,15 @@ struct Refridgerator
 {
     //5 properties:
     //    - amount of ice cubes produced (int)
+    int amtIceCubesPerHour = 25;
     //    - crisper drawer humidity (float)
+    float crisperDrawerHumidity = 0.72;
     //    - water temperature (int)
+    int waterTemp = 62;
     //    - type of ice dispensed (int)
+    int iceType = 2;
     //    - thermostat set value (float)
+    float fridgeTemp = 35.75;
     //3 things it can do:
     //    - optimize humidity level for produce
     //    - illuminate refridgerator when door is opened
@@ -571,10 +591,15 @@ struct Display
 {
     //5 properties:
     //    - brightness (double)
+    double brightness = 87.35908;
     //    - color mode (int)
+    int colorMode = 3;
     //    - x-scale (int)
+    int xScale = 10;
     //    - y-scale (int)
+    int yScale = 15;
     //    - refresh rate (double)
+    double refreshRate = 200.0009;
     //3 things it can do:
     //    - adjust color hue and saturation for different environments
     //    - adjust level of illumination dependent on room brightness
@@ -601,10 +626,15 @@ struct Controls
 {
     //5 properties:
     //    - x-axis calibration (float)
+    float xAxis = 12.f;
     //    - y-axis calibration (float)
+    float yAxis = 12.f;
     //    - cursor speed (double)
+    double cursorSpeed = 10.956;
     //    - button (char)
+    char button = 'B';
     //    - button function assignment (int)
+    int buttonFunction = 9;
     //3 things it can do:
     //    - assign the functionality of a button or joystick
     //    - compensate for delay
@@ -631,10 +661,15 @@ struct ArcadeBox
 {
     //5 properties:
     //    - storage location (int)
+    int storageLocation = 0;
     //    - number of openings (int)
+    int numOpenings = 4;
     //    - weight (float)
+    float weight = 123.4;
     //    - style (std::string)
+    std::string style = "Upright";
     //    - number of panels (int)
+    int numPanels = 5;
     //3 things it can do:
     //    - store display and hardware
     //    - allow access to hardware 
@@ -661,10 +696,15 @@ struct Speakers
 {
     //5 properties:
     //    - volume (float)
+    float volume = 9.f;
     //    - input device (int)
+    int inputDevice = 0;
     //    - left speaker output (double)
+    double SpeakerL = 5.0;
     //    - right speaker output (double)
+    double SpeakerR = 5.0;
     //    - mono audio (int)
+    int monoAudio = 0;
     //3 things it can do:
     //    - adjust volume
     //    - change input device/where sound is coming from
@@ -691,10 +731,15 @@ struct CoinBox
 {
     //5 properties:
     //    - coin return (bool)
+    bool coinReturn = false;
     //    - amount of coin stored (int)
+    int amtCoinStored = 134;
     //    - coin slot size (float)
+    float coinSlotSize = 0.958;
     //    - amount of change backed-up (int)
+    int amtBackedUpChange = 2;
     //    - coin detector switch (bool)
+    bool quarterDetected = true;
     //3 things it can do:
     //    - detect type of coin inserted
     //    - store change
