@@ -445,6 +445,15 @@ Thing 1) Keyboard
     2) pitch shift notes being played
     3) increase duration of notes being played
 
+*/
+
+struct Keyboard 
+{
+
+};
+
+/*
+
 Thing 2) Electric Guitar
 5 properties:
     1) amount of pickups (int) 
@@ -456,6 +465,15 @@ Thing 2) Electric Guitar
     1) capture string vibrations
     2) dial in/out treble frequencies
     3) adjust string tension
+
+*/
+
+struct ElectricGuitar 
+{
+
+};
+
+/*
 
 Thing 3) Washing Machine            
 5 properties:
@@ -469,6 +487,15 @@ Thing 3) Washing Machine
     2) indicate load characteristics
     3) procure optimal temperature water
 
+*/
+
+struct WashingMachine 
+{
+
+};
+
+/*
+
 Thing 4) Refridgerator
 5 properties:
     1) amount of ice cubes produced (int)
@@ -480,6 +507,15 @@ Thing 4) Refridgerator
     1) optimize humidity level for produce
     2) illuminate refridgerator when door is opened
     3) indicate temperature 
+
+*/
+
+struct Refridgerator
+{
+
+};
+
+/*
 
 Thing 5) Display
 5 properties:
@@ -493,6 +529,15 @@ Thing 5) Display
     2) adjust level of illumination dependent on room brightness
     3) adjust size of text, display size and other items
 
+*/
+
+struct Display 
+{
+
+};
+
+/*
+
 Thing 6) Controls
 5 properties:
     1) x-axis calibration (float)
@@ -504,6 +549,15 @@ Thing 6) Controls
     1) assign the functionality of a button or joystick
     2) compensate for delay
     3) adjust the distance traveled by a cursor/character based on joystick movement
+
+*/
+
+struct Controls 
+{
+
+};
+
+/*
 
 Thing 7) Arcade Box
 5 properties:
@@ -517,6 +571,15 @@ Thing 7) Arcade Box
     2) allow access to hardware 
     3) disassemblable for transport
 
+*/
+
+struct ArcadeBox 
+{
+
+};
+
+/*
+
 Thing 8) Speakers 
 5 properties:
     1) volume (float)
@@ -529,6 +592,15 @@ Thing 8) Speakers
     2) change input device/where sound is coming from
     3) combine sound coming from L/R speakers
 
+*/
+
+struct Speakers 
+{
+
+};
+
+/*
+
 Thing 9) Coin Box
 5 properties:
     1) coin return (bool)
@@ -540,6 +612,15 @@ Thing 9) Coin Box
     1) detect type of coin inserted
     2) store change
     3) return coins when not accepted
+
+*/
+
+struct CoinBox 
+{
+
+};
+
+/*
 
 Thing 10) Arcade Machine
 5 properties:
@@ -554,6 +635,11 @@ Thing 10) Arcade Machine
     3) collect money
     
 */
+
+struct ArcadeMachine 
+{
+
+};
 
 /*
 =================
