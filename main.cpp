@@ -343,7 +343,7 @@ Thing 10) Arcade Machine
     2) Controls
     3) Arcade Box
     4) Speakers
-    5) coin box
+    5) Coin Box
 3 things it can do:
     1) move characters
     2) make sound
@@ -434,65 +434,65 @@ example:
     You will need to provide 5 properties and 3 member functions of that Engine object in plain English.
     Remember to pick properties that can be represented with 'int float double bool char std::string'.
 
-Thing 5)
+Thing 5) Display
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) brightness
+    2) color mode
+    3) scale
+    4) orientation
+    5) refresh rate
 3 things it can do:
-    1)
-    2)
-    3)
+    1) adjust color hue and saturation for different environments
+    2) adjust level of illumination dependent on room brightness
+    3) adjust size of text, display size and other items
 
-Thing 6)
+Thing 6) Controls
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) x-axis calibration
+    2) y-axis calibration
+    3) cursor speed
+    4) button
+    5) button function assignment
 3 things it can do:
-    1)
-    2)
-    3)
+    1) assign the functionality of a button or joystick
+    2) compensate for delay
+    3) adjust the distance traveled by a cursor/character based on joystick movement
 
-Thing 7)
+Thing 7) Arcade Box
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) storage location
+    2) number of openings
+    3) weight
+    4) style
+    5) number of panels
 3 things it can do:
-    1)
-    2)
-    3)
+    1) store display and hardware
+    2) allow access to hardware 
+    3) disassemblable for transport
 
-Thing 8)
+Thing 8) Speakers 
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) volume
+    2) input device
+    3) left speaker output
+    4) right speaker output
+    5) mono audio
 3 things it can do:
-    1)
-    2)
-    3)
+    1) adjust volume
+    2) change input device/where sound is coming from
+    3) combine sound coming from L/R speakers
 
-Thing 9)
+Thing 9) Coin Box
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) coin return
+    2) amount of coin stored
+    3) coin slot
+    4) amount of change backed-up
+    5) coin detector switch
 3 things it can do:
-    1)
-    2)
-    3)
+    1) detect type of coin inserted
+    2) store change
+    3) return coins when not accepted
  */
 
 /*
