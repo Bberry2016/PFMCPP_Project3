@@ -436,11 +436,11 @@ example:
 
 Thing 5) Display
 5 properties:
-    1) brightness
-    2) color mode
-    3) scale
-    4) orientation
-    5) refresh rate
+    1) brightness (double)
+    2) color mode (int)
+    3) x-scale (int)
+    4) y-scale (int)
+    5) refresh rate (double)
 3 things it can do:
     1) adjust color hue and saturation for different environments
     2) adjust level of illumination dependent on room brightness
@@ -448,11 +448,11 @@ Thing 5) Display
 
 Thing 6) Controls
 5 properties:
-    1) x-axis calibration
-    2) y-axis calibration
-    3) cursor speed
-    4) button
-    5) button function assignment
+    1) x-axis calibration (float)
+    2) y-axis calibration (float)
+    3) cursor speed (double)
+    4) button (char)
+    5) button function assignment (int)
 3 things it can do:
     1) assign the functionality of a button or joystick
     2) compensate for delay
@@ -460,11 +460,11 @@ Thing 6) Controls
 
 Thing 7) Arcade Box
 5 properties:
-    1) storage location
-    2) number of openings
-    3) weight
-    4) style
-    5) number of panels
+    1) storage location (int)
+    2) number of openings (int)
+    3) weight (float)
+    4) style (std::string)
+    5) number of panels (int)
 3 things it can do:
     1) store display and hardware
     2) allow access to hardware 
@@ -472,11 +472,11 @@ Thing 7) Arcade Box
 
 Thing 8) Speakers 
 5 properties:
-    1) volume
-    2) input device
-    3) left speaker output
-    4) right speaker output
-    5) mono audio
+    1) volume (float)
+    2) input device (int)
+    3) left speaker output (double)
+    4) right speaker output (double)
+    5) mono audio (int)
 3 things it can do:
     1) adjust volume
     2) change input device/where sound is coming from
@@ -484,11 +484,11 @@ Thing 8) Speakers
 
 Thing 9) Coin Box
 5 properties:
-    1) coin return
-    2) amount of coin stored
-    3) coin slot
-    4) amount of change backed-up
-    5) coin detector switch
+    1) coin return (bool)
+    2) amount of coin stored (int)
+    3) coin slot size (float)
+    4) amount of change backed-up (int)
+    5) coin detector switch (bool)
 3 things it can do:
     1) detect type of coin inserted
     2) store change
