@@ -196,53 +196,7 @@ Part 1b - Step 2: Assignment
         c) pick properties that can eventually be represented with 
         'int float double bool char std::string'.
 
-Thing 1) Keyboard
-5 properties:
-    1) midi device (std::string)
-    2) volume (double)
-    3) amount of modulation (float)
-    4) number of keys (int)
-    5) sustain (double)
-3 things it can do:
-    1) adjust volume of notes being played
-    2) pitch shift notes being played
-    3) increase duration of notes being played
 
-Thing 2) Electric Guitar
-5 properties:
-    1) amount of pickups (int) 
-    2) tremolo bar position (int)
-    3) string vibration (double)
-    4) tone knob (int)
-    5) pickup selector (int)
-3 things it can do:
-    1) capture string vibrations
-    2) dial in/out treble frequencies
-    3) adjust string tension
-
-Thing 3) Washing Machine            
-5 properties:
-    1) power supply (float)
-    2) cycle selection (int)
-    3) door open/closed (bool)
-    4) amount of cold/hot water (float)
-    5) drum rotation speed (double)
-3 things it can do:
-    1) seal in moisture and detergent
-    2) indicate load characteristics
-    3) procure optimal temperature water
-
-Thing 4) Refridgerator
-5 properties:
-    1) amount of ice cubes produced (int)
-    2) crisper drawer humidity (float)
-    3) water temperature (int)
-    4) type of ice dispensed (int)
-    5) thermostat set value (float)
-3 things it can do:
-    1) optimize humidity level for produce
-    2) illuminate refridgerator when door is opened
-    3) indicate temperature 
 */
 
 /*
@@ -337,17 +291,7 @@ Define an object that is made of 5 sub-objects.
     These 5 sub-objects will not be defined using Primitives, but instead will be their own UDTs 
     you'll define these 5 sub-objects in Part 1d.
 
-Thing 10) Arcade Machine
-5 properties:
-    1) Display
-    2) Controls
-    3) Arcade Box
-    4) Speakers
-    5) Coin Box
-3 things it can do:
-    1) move characters
-    2) make sound
-    3) collect money
+
  */
 
  /*
@@ -434,6 +378,109 @@ example:
     You will need to provide 5 properties and 3 member functions of that Engine object in plain English.
     Remember to pick properties that can be represented with 'int float double bool char std::string'.
 
+
+ */
+
+/*
+=================
+Part 1d - Step 3: Commit
+=================
+Now that you've made changes to the code, make a commit!
+Be sure to make the commit message meaningful.
+*/
+
+/*
+================
+Part 1d - Step 4: Assignment
+================
+    - write the name of the primitive type you'll be using after each property for UDTs 5 - 9.
+    - You already did this for UDTs 1-4 in Part 1c.
+    - Pick properties that can be represented with 'int float double bool char std::string'
+    
+example: 
+    Display:
+        Number of Pixels (int)
+        Amount of Power consumed (milliwatt-hours) (float)
+        Brightness (double)
+        width in cm (int)
+        height in cm (int)
+*/
+
+/*
+=================
+Part 1d - Step 5: Commit
+=================
+Now that you've made changes to the code, make a commit!
+Be sure to make the commit message meaningful.
+*/
+
+/*
+===================
+Part 1d - Step 6: assignment
+===================
+You've just defined 10 UDTs!
+4 of them are unrelated (UDTs 1-4).
+5 of them form the sub-objects that make up the 10th UDT. 
+
+MOVE THEM to the space below this block comment and put them in numerical order 
+(1 - 10).
+    DO NOT COPY. 
+    CUT AND PASTE. 
+    I do not want to see 2 copies of your Plain-English UDTs.  
+    I only want to see the 10 UDTs written BELOW this block comment, in numerical order (1 - 10).
+    simply CUT and PASTE them in the space provided below:
+*/
+
+/*
+
+Thing 1) Keyboard
+5 properties:
+    1) midi device (std::string)
+    2) volume (double)
+    3) amount of modulation (float)
+    4) number of keys (int)
+    5) sustain (double)
+3 things it can do:
+    1) adjust volume of notes being played
+    2) pitch shift notes being played
+    3) increase duration of notes being played
+
+Thing 2) Electric Guitar
+5 properties:
+    1) amount of pickups (int) 
+    2) tremolo bar position (int)
+    3) string vibration (double)
+    4) tone knob (int)
+    5) pickup selector (int)
+3 things it can do:
+    1) capture string vibrations
+    2) dial in/out treble frequencies
+    3) adjust string tension
+
+Thing 3) Washing Machine            
+5 properties:
+    1) power supply (float)
+    2) cycle selection (int)
+    3) door open/closed (bool)
+    4) amount of cold/hot water (float)
+    5) drum rotation speed (double)
+3 things it can do:
+    1) seal in moisture and detergent
+    2) indicate load characteristics
+    3) procure optimal temperature water
+
+Thing 4) Refridgerator
+5 properties:
+    1) amount of ice cubes produced (int)
+    2) crisper drawer humidity (float)
+    3) water temperature (int)
+    4) type of ice dispensed (int)
+    5) thermostat set value (float)
+3 things it can do:
+    1) optimize humidity level for produce
+    2) illuminate refridgerator when door is opened
+    3) indicate temperature 
+
 Thing 5) Display
 5 properties:
     1) brightness (double)
@@ -493,64 +540,20 @@ Thing 9) Coin Box
     1) detect type of coin inserted
     2) store change
     3) return coins when not accepted
- */
 
-/*
-=================
-Part 1d - Step 3: Commit
-=================
-Now that you've made changes to the code, make a commit!
-Be sure to make the commit message meaningful.
-*/
-
-/*
-================
-Part 1d - Step 4: Assignment
-================
-    - write the name of the primitive type you'll be using after each property for UDTs 5 - 9.
-    - You already did this for UDTs 1-4 in Part 1c.
-    - Pick properties that can be represented with 'int float double bool char std::string'
+Thing 10) Arcade Machine
+5 properties:
+    1) Display
+    2) Controls
+    3) Arcade Box
+    4) Speakers
+    5) Coin Box
+3 things it can do:
+    1) move characters
+    2) make sound
+    3) collect money
     
-example: 
-    Display:
-        Number of Pixels (int)
-        Amount of Power consumed (milliwatt-hours) (float)
-        Brightness (double)
-        width in cm (int)
-        height in cm (int)
 */
-
-/*
-=================
-Part 1d - Step 5: Commit
-=================
-Now that you've made changes to the code, make a commit!
-Be sure to make the commit message meaningful.
-*/
-
-/*
-===================
-Part 1d - Step 6: assignment
-===================
-You've just defined 10 UDTs!
-4 of them are unrelated (UDTs 1-4).
-5 of them form the sub-objects that make up the 10th UDT. 
-
-MOVE THEM to the space below this block comment and put them in numerical order 
-(1 - 10).
-    DO NOT COPY. 
-    CUT AND PASTE. 
-    I do not want to see 2 copies of your Plain-English UDTs.  
-    I only want to see the 10 UDTs written BELOW this block comment, in numerical order (1 - 10).
-    simply CUT and PASTE them in the space provided below:
-*/
-
-
-
-
-
-
-
 
 /*
 =================
