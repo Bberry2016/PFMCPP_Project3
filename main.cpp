@@ -650,6 +650,20 @@ struct Controls
     char button = 'B';
     //    - button function assignment (int)
     int buttonFunction = 9;
+
+    struct JoyStick
+    {
+        int directionalScope = 0;    // Can the joystick move 360 degrees, or just UDLR   
+        double xPosition = 0.0;
+        double yPosition = 0.0;
+        std::string knobType = "Sphere";
+        float height = 4.f;
+
+        double returnToCenter(double xActivePosition, double yActivePosition, bool release = true);    // Return joystick to center position when released
+        void moveVertically(double yActivePosition);
+        void moveHorizontally(double xActivePosition);
+    };
+
     //3 things it can do:
     //    - assign the functionality of a button or joystick
     void buttonAssignment();
@@ -764,6 +778,20 @@ struct CoinBox
     int amtBackedUpChange = 2;
     //    - coin detector switch (bool)
     bool quarterDetected = true;
+
+    struct CoinSensor
+    {
+        bool isAQuarter = true;
+        int amountInCents = 0;
+        float coinDiameter = 0.f;
+        float coinWeight = 0.f;
+        int creditToPlay = 3;
+
+        void inserted();
+        void acceptCoin(int country, bool isDirty = false);
+        int creditApplied(int amountPerCredit, int amountSinceLastGameFinished, int currentCredit);    // Updates credits based on amount of coin inserted
+    };
+
     //3 things it can do:
     //    - detect type of coin inserted    // Indicate what type of coin was inserted based on height and weight
     int detectCoinType(int coinHeight, int coinWeight);
