@@ -668,9 +668,9 @@ struct Controls
     //    - assign the functionality of a button or joystick
     void buttonAssignment();
     //    - compensate for delay    // Calibrates control to combat latency
-    float delayComp(float timeButtonPressed, float timeActionExecuted);
+    float delayComp(float timeButtonPressed, float timeActionExecuted, JoyStick activeJoystick);
     //    - adjust the distance traveled by a cursor/character based on joystick movement    // Defines amount of movement needed to get from point A to point B
-    double adjustCharacterSpeed(int xPointA, int yPointA, int xPointB, int yPointB, bool joyStickEngaged = false);
+    double adjustCharacterSpeed(int xPointA, int yPointA, int xPointB, int yPointB, JoyStick activeJoystick);
 };
 
 /*
@@ -798,7 +798,7 @@ struct CoinBox
     //    - store change
     void storeChange();
     //    - return coins when not accepted
-    void returnCoin();
+    void returnCoin(CoinSensor penny);
 };
 
 /*
