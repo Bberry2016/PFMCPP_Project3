@@ -821,10 +821,15 @@ struct ArcadeMachine
 {
     //5 properties:
     //    - Display
+    Display LEDMonitor;
     //    - Controls
+    Controls controlPanel;
     //    - Arcade Box
+    ArcadeBox uprightCabinet;
     //    - Speakers
+    Speakers roundSpeakers;
     //    - Coin Box
+    CoinBox coinBox;
     //3 things it can do:
     //    - move characters    // Moves character from point A to point B when a joystick is used
     double moveCharacter(bool joyStickEngaged, int xPointA, int yPointA, int xPointB, int yPointB, double joyStickDirection = 0);
