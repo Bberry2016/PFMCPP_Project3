@@ -1063,11 +1063,11 @@ struct Keyboard
     //    - sustain (double)
     double amtSustain = 4.66663;
     //3 things it can do:
-    //    - adjust volume of notes being played    // Difference in initial volume setting and volume end value
+    //    - adjust volume   // Difference in initial volume setting and volume end value
     double adjustVolume(double volumeKnobDiff);
-    //    - pitch shift notes being played    // Shirt from initial pitch based on note played with no modulation
+    //    - pitch shift    // Shirt from initial pitch based on note played with no modulation
     float pitchShift(float intendedPitch = 0);
-    //    - sustain notes being played
+    //    - sustain
     void sustian();
 };
 
@@ -1088,7 +1088,7 @@ struct ElectricGuitar
     //    - capture string vibrations
     void captureStringVibrations();
     //    - dial in/out treble frequencies    // Select treble frequency level
-    int dialInTrebleFreq(int initToneValue);
+    int dialInOutTrebleFreq(int initToneValue);
     //    - adjust string tension    // Returns difference of string tension before and after use of tremolo bar
     float adjustStringTension(float initStringTension);
 };
@@ -1109,7 +1109,7 @@ struct WashingMachine
     //3 things it can do:
     //    - seal in moisture 
     void sealInMoisture();
-    //    - indicate type of laundry/load characteristics    // Indicates type of load 
+    //    - indicate type of laundry    // Indicates load characteristics
     int indicateTypeOfLaundry();
     //    - optimize water temperature   // Adjusts water temperature based on load type
     float optimizeWaterTemp(int laundryType);
@@ -1131,9 +1131,9 @@ struct Refridgerator
     //3 things it can do:
     //    - optimize humidity level    // Adjusts crisper drawer humidity to optimum level for produce
     float optimizeHumidityLevel();
-    //    - illuminate refridgerator when door is opened    
+    //    - illuminate refridgerator   
     void illuminateRefridgerator(bool openDoor);
-    //    - indicate refridgerator fridge temperature 
+    //    - indicate fridge temperature 
     float indicateFridgeTemp();
 };
 
@@ -1151,11 +1151,11 @@ struct Display
     //    - refresh rate (double)
     double refreshRate = 200.0009;
     //3 things it can do:
-    //    - select color mode (hue/saturation)    // Selects from array of color modes
+    //    - select color mode    // Selects from array of color modes
     int selectColorMode(int hue, int saturation);
-    //    - adjust illumination based on room brightness    // Modifys display brightenss based on brightness in room
+    //    - adjust illumination based on room     // Modifys display brightenss based on brightness in room
     double adjustIlluminationBasedOnRoom(double roomBrightness);
-    //    - adjust display characteristics (size of text, display size and other items)    // Selects display preset based on desired screen settings
+    //    - adjust display characteristics    // Selects display preset based on desired screen settings (size of text, display size and other items)
     int adjustDisplayCharacteristics(int textSize, int orientation, float screenArea);
 };
 
@@ -1187,11 +1187,11 @@ struct Controls
     };
 
     //3 things it can do:
-    //    - assign the functionality of a button or joystick
+    //    - assign button functionality
     void assignButtonFunctionality();
     //    - delay compensation    // Calibrates control to combat latency
     float delayCompensation(float timeButtonPressed, float timeActionExecuted, JoyStick activeJoystick);
-    //    - adjust the distance traveled by a cursor/character based on joystick movement    // Defines amount of movement needed to get from point A to point B
+    //    - adjust distance traveled    // Defines amount of movement needed to get from point A to point B based on amount of joystick movement
     double adjustDistanceTraveled(int xPointA, int yPointA, int xPointB, int yPointB, JoyStick activeJoystick);
 };
 
@@ -1209,10 +1209,10 @@ struct ArcadeBox
     //    - number of panels (int)
     int numPanels = 5;
     //3 things it can do:
-    //    - store item here (display, hardware, speakers, etc.)
+    //    - store item here 
     void storeItemHere(std::string storeableItem);
-    //    - open back panel of arcade box
-    void openBackPanel();
+    //    - open arcade box back panel
+    void openArcadeBoxBackPanel();
     //    - disassemblable and transport
     void disassembleAndTransport();
 };
@@ -1233,9 +1233,9 @@ struct Speakers
     //3 things it can do:
     //    - adjust volume    // Difference in initial volume setting and volume end value
     double adjustVolume(double volumeKnobDiff);
-    //    - change input device/where sound is coming from
+    //    - change input device
     void changeInputDevice();
-    //    - combine sound coming from L/R speakers    // volume output mono-audio
+    //    - combine sound     // volume output mono-audio
     double combineSound(double SpeakerL, double SpeakerR);
 };
 
@@ -1268,11 +1268,11 @@ struct CoinBox
 
     //3 things it can do:
     //    - detect type of coin inserted    // Indicate what type of coin was inserted based on height and weight
-    int detectCoinType(int coinHeight, int coinWeight);
+    int detectTypeOfCoinInserted(int coinHeight, int coinWeight);
     //    - store change
     void storeChange();
     //    - return coins when not accepted
-    void returnCoinsNotAccepted(CoinSensor penny);
+    void returnCoinsWhenNotAccepted(CoinSensor penny);
 };
 
 
