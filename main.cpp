@@ -28,6 +28,7 @@ Thing: Car Wash
 
 #include <iostream>
 #include <string>
+#include <cmath>
 namespace Part1eVersion 
 {
 struct CarWash        
@@ -168,34 +169,97 @@ void Person::run(int, int backFootLocation, int frontFootLocation, bool startWit
  This usually means you have to use identical types for all variables used in an expression that is producing that conversion warning.
  */
 
+// 
+// UDT No. 1 
+// 
+
+struct VolumeKnob
+{
+    int amountTurned;
+
+    int turnRight(bool)
+    {
+        return amountTurned;
+    }
+};
 
 struct Keyboard 
 {
     std::string midiDevice = "akai";
-    double volume = 9.797;
+    int volume = 9;
     float amtModulation = 2.f;
     int numKeys = 88;
     double amtSustain = 4.66663;
     
-    double adjustVolume(double volumeKnobDiff);
+    void adjustVolume(int volumeKnobDiff);
     float pitchShift(float intendedPitch = 0);
     void sustian();
+
+    VolumeKnob volumeKnob;
+};
+
+void Keyboard::adjustVolume(int volumeKnobDiff) 
+{
+    if(volumeKnob.turnRight(true) > 0)
+    {
+        volume += volumeKnobDiff;
+    }
+    else if(volumeKnob.turnRight(false) < 0)
+    {
+        volume -= volumeKnobDiff;
+    }
+}
+
+// 
+// UDT No. 2
+// 
+
+struct TremoloBar
+{
+    void lift(){}
+    void depress(){}
 };
 
 struct ElectricGuitar 
 {
     int amtPickups = 2;
-    int tremoloBarPosition = -2;
+    float tremoloBarPosition = 0.f;
     double stringVibration = 82.947;
     int toneKnobPosition = 0;
     int pickupSelection = 3;
     
     void captureStringVibrations();
     int dialInOutTrebleFreq(int initToneValue);
-    float adjustStringTension(float initStringTension);
+    float adjustStringTension(bool, float tremoloBarPositionDifference);
+
+    TremoloBar tremoloBar;
 };
 
-struct WashingMachine 
+float ElectricGuitar::adjustStringTension(bool tensionIncreased, float tremoloBarPositionDifference)
+{
+    if(tensionIncreased == true)
+    {
+        tremoloBar.lift();
+    }
+    else
+    {
+        tremoloBar.depress();
+    }
+    
+    return tremoloBarPosition += tremoloBarPositionDifference;
+}
+
+// 
+// UDT No. 3
+// 
+
+struct washerDryerDoor
+{
+    void hotAirGasketEngage(){}
+    void waterGasketEngage(){}
+};
+
+struct hybridWasherDryer
 {
     float powerInAmps = 13.f;
     int cycleSelection = 8;
@@ -206,6 +270,34 @@ struct WashingMachine
     void sealInMoisture();
     int indicateTypeOfLaundry();
     float optimizeWaterTemp(int laundryType);
+
+    washerDryerDoor doorWhenDryer;
+    washerDryerDoor doorWhenWasher;
+};
+
+void hybridWasherDryer::sealInMoisture()
+{
+    if(cycleSelection < 4 && doorOpen == false)
+    {
+        doorWhenDryer.hotAirGasketEngage();
+    }
+    else if(cycleSelection >= 4 && doorOpen == false)
+    {
+        doorWhenWasher.waterGasketEngage();
+    }
+    else
+    {
+        std::cout << "Close the door.";
+    }
+}
+
+// 
+// UDT No. 4
+// 
+
+struct RefridgeratorDoor 
+{
+    void openDoor(){}
 };
 
 struct Refridgerator
@@ -215,11 +307,25 @@ struct Refridgerator
     int waterTemp = 62;
     int iceType = 2;
     float fridgeTemp = 35.75;
+    bool lightUp = false;
     
     float optimizeHumidityLevel();
-    void illuminateRefridgerator(bool openDoor);
+    bool illuminateRefridgerator(bool);
     float indicateFridgeTemp();
+
+    RefridgeratorDoor refridgeratorDoor;
 };
+
+bool Refridgerator::illuminateRefridgerator(bool lightOn)
+{
+    if(lightOn == false) refridgeratorDoor.openDoor();
+
+    return lightUp = true;
+}
+
+// 
+// UDT No. 5
+// 
 
 struct Display 
 {
@@ -232,15 +338,19 @@ struct Display
     int selectColorMode(int hue, int saturation);
     double adjustIlluminationBasedOnRoom(double roomBrightness);
     int adjustDisplayCharacteristics(int textSize, int orientation, float screenArea);
+    void storeItemInArcadeBox(){}
 };
 
 struct Controls 
 {
-    float xAxis = 12.f;
-    float yAxis = 12.f;
-    double cursorSpeed = 10.956;
+    double xAxis = 0;
+    double yAxis = 0;
     char button = 'B';
     int buttonFunction = 9;
+
+    // 
+    // UDT No. 6
+    // 
 
     struct JoyStick
     {
@@ -249,40 +359,74 @@ struct Controls
         double yPosition = 0.0;
         std::string knobType = "Sphere";
         float height = 4.f;
+        int cursorSpeed = 1;
 
-        double returnToCenter(double xActivePosition, double yActivePosition, bool release = true);         void moveVertically(double yActivePosition);
+        double returnToCenter(double xActivePosition, double yActivePosition, bool release = true);
+        void moveVertically(double yActivePosition);
         void moveHorizontally(double xActivePosition);
+        int getActiveCursorSpeed()
+        {
+            return cursorSpeed;
+        }
     };
 
     void assignButtonFunctionality();
     float delayCompensation(float timeButtonPressed, float timeActionExecuted, JoyStick activeJoystick);
-    double adjustDistanceTraveled(int xPointA, int yPointA, int xPointB, int yPointB, JoyStick activeJoystick);
+    double adjustDistanceTraveled(int adjustmentAmount, double xPointA, double yPointA, double xPointB, double yPointB, JoyStick activeJoystick);
+    void storeItemInArcadeBox(){}
 };
 
-struct ArcadeBox 
+double Controls::adjustDistanceTraveled(int adjustedCursorSpeed, double xPointA, double yPointA, double xPointB, double yPointB, JoyStick activeJoystick)
 {
-    int storageLocation = 0;
-    int numOpenings = 4;
-    float weight = 123.f;
-    std::string style = "Upright";
-    int numPanels = 5;
-     
-    void storeItemHere(std::string storeableItem);
-    void openArcadeBoxBackPanel();
-    void disassembleAndTransport();
-};
+    double totalDifference = fabs((xPointB - xPointA) - (yPointB - yPointA));
+    
+    int activeCursorSpeed = activeJoystick.getActiveCursorSpeed();
+
+    return totalDifference *= (1 + (adjustedCursorSpeed - activeCursorSpeed));
+}
+
+// 
+// UDT No. 8
+// 
 
 struct Speakers 
 {
     float volume = 9.f;
     int inputDevice = 0;
-    double SpeakerL = 5.0;
-    double SpeakerR = 5.0;
+    double SpeakerLOutput = 5.0;
+    double SpeakerROutput = 5.0;
     int monoAudio = 0;
     
     double adjustVolume(double volumeKnobDiff);
     void changeInputDevice();
     double combineSound(double SpeakerL, double SpeakerR);
+    void storeItemInArcadeBox(){}
+};
+
+double Speakers::combineSound(double SpeakerL, double SpeakerR)
+{
+    double combinedOutput = 0.0;
+    
+    if(monoAudio == 1) combinedOutput = 0.5 * (SpeakerL + SpeakerR);
+
+    return combinedOutput;
+}
+
+
+
+// 
+// UDT No. 9
+// 
+
+struct Coin 
+{
+    double coinDiameter = 0.0;
+    double coinWeight = 0.0;
+
+    bool inserted()
+    {
+        return true;
+    }
 };
 
 struct CoinBox 
@@ -293,22 +437,112 @@ struct CoinBox
     int amtBackedUpChange = 2;
     bool quarterDetected = true;
 
+    // 
+    // UDT No. 10
+    // 
+
     struct CoinSensor
     {
         bool isAQuarter = true;
         int amountInCents = 0;
-        float coinDiameter = 0.f;
-        float coinWeight = 0.f;
+        double coinDiameter = 0.00;
+        double coinWeight = 0.00;
         int creditToPlay = 3;
 
-        void inserted();
-        void acceptCoin(int country, bool isDirty = false);
-        int creditApplied(int amountPerCredit, int amountSinceLastGameFinished, int currentCredit);     };
+        int detectTypeOfCoinInserted(double coinDiameterInches, double coinWeightGrams)
+        {
+            int coinType = 0;
+            
+            if((coinDiameterInches >= 0.74 || coinDiameterInches <= 0.76) && (coinWeightGrams >= 2.4 || coinWeightGrams <= 2.6))
+            {
+                coinType = 1;
+            }
+            else if((coinDiameterInches >= 0.695 || coinDiameterInches <= 0.715) && (coinWeightGrams >= 2.168 || coinWeightGrams <= 2.368))
+            {
+                coinType = 2;
+            }
+            else if((coinDiameterInches >= 0.825 || coinDiameterInches <= 0.845) && (coinWeightGrams >= 4.9 || coinWeightGrams <= 5.1))
+            {
+                coinType = 3;
+            }
+            else if((coinDiameterInches >= 0.945 || coinDiameterInches <= 0.965) && (coinWeightGrams >= 5.57 || coinWeightGrams <= 5.77))
+            {
+                coinType = 4;
+            }
 
-    int detectTypeOfCoinInserted(int coinHeight, int coinWeight);
-    void storeChange();
-    void returnCoinsWhenNotAccepted(CoinSensor penny);
+            return coinType;
+        }
+        bool acceptCoin(int coinType)
+        {
+            if(coinType == 0) return false;
+            else return true;
+        }
+        int creditApplied(int amountPerCredit, int amountSinceLastGameFinished, int currentCredit);     
+    };
+
+    bool storeChange(CoinSensor coinSensor);
+    void returnCoinsWhenNotAccepted(CoinSensor coinSensor);
+    void storeItemInArcadeBox(){}
+
+    Coin coin;
 };
+
+bool CoinBox::storeChange(CoinSensor coinSensor)
+{
+    bool acceptCoin = false;
+    if (coin.inserted()) acceptCoin = coinSensor.acceptCoin(coinSensor.detectTypeOfCoinInserted(coin.coinWeight, coin.coinDiameter));
+
+    return acceptCoin;
+}
+
+// 
+// UDT No. 7
+// 
+
+struct ArcadeBox 
+{
+    int numOpenings = 4;
+    float weight = 123.f;
+    std::string style = "Upright";
+    int numPanels = 5;
+     
+    void storeItemHere(std::string storeableItem, int storageLocation);
+    void openArcadeBoxBackPanel();
+    void disassembleAndTransport();
+
+    CoinBox coinBox;
+    Display display;
+    Speakers speakers;
+    Controls controls;    
+};
+
+void ArcadeBox::storeItemHere(std::string storeableItem, int storageLocation)
+{
+    if(storageLocation >= 0 && storageLocation <= 3)
+    {
+        if(storageLocation == 0) 
+        {
+            coinBox.storeItemInArcadeBox();
+        }
+        else if(storageLocation == 1)
+        {
+            display.storeItemInArcadeBox();
+        }
+        else if(storageLocation == 2)
+        {
+            speakers.storeItemInArcadeBox();
+        }
+        else
+        {
+            controls.storeItemInArcadeBox();
+        }
+        std::cout << storeableItem + "successfully stored in location" + std::to_string(storageLocation);
+    }
+    else 
+    {
+        std::cout << "You can't store that here.";
+    }
+}
 
 
 
