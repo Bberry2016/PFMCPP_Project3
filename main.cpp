@@ -108,8 +108,41 @@ struct CarWash
     You'll need to insert the Person struct from the video in the space below.
  */
 
+struct Limb 
+{
+    bool stepForward();
+    int stepSize();
+};
 
+struct Person 
+{
+    Limb leftFoot;
+    Limb rightFoot;
 
+    int age;
+    int height;
+    float hairLength;
+    float GPA;
+    unsigned int SATScore;
+    int distanceTraveled;
+
+    void run(int howFast, bool startWithLeftFoot);
+};
+
+void Person::run(int howFast, bool startWithLeftFoot)
+{
+    if(startWithLeftFoot == true)
+    {
+        leftFoot.stepForward();
+        rightFoot.stepForward();
+    }
+    else
+    {
+        rightFoot.stepForward();
+        leftFoot.stepForward();
+    }
+    distanceTraveled += leftFoot.stepSize() + rightFoot.stepSize();
+}
 
 
  /*
@@ -134,126 +167,75 @@ struct CarWash
 
 struct Keyboard 
 {
-    //5 properties:
-    //    - midi device (std::string)
     std::string midiDevice = "akai";
-    //    - volume (double)
     double volume = 9.797;
-    //    - amount of modulation (float)
     float amtModulation = 2.f;
-    //    - number of keys (int)
     int numKeys = 88;
-    //    - sustain (double)
     double amtSustain = 4.66663;
-    //3 things it can do:
-    //    - adjust volume   // Difference in initial volume setting and volume end value
+    
     double adjustVolume(double volumeKnobDiff);
-    //    - pitch shift    // Shirt from initial pitch based on note played with no modulation
     float pitchShift(float intendedPitch = 0);
-    //    - sustain
     void sustian();
 };
 
 struct ElectricGuitar 
 {
-    //5 properties:
-    //    - amount of pickups (int) 
     int amtPickups = 2;
-    //    - tremolo bar position (int)
     int tremoloBarPosition = -2;
-    //    - string vibration (double)
     double stringVibration = 82.947;
-    //    - tone knob (int)
     int toneKnobPosition = 0;
-    //    - pickup selector (int)
     int pickupSelection = 3;
-    //3 things it can do:
-    //    - capture string vibrations
+    
     void captureStringVibrations();
-    //    - dial in/out treble frequencies    // Select treble frequency level
     int dialInOutTrebleFreq(int initToneValue);
-    //    - adjust string tension    // Returns difference of string tension before and after use of tremolo bar
     float adjustStringTension(float initStringTension);
 };
 
 struct WashingMachine 
 {
-    //5 properties:
-    //    - power supply (float)
     float powerInAmps = 13.f;
-    //    - cycle selection (int)
     int cycleSelection = 8;
-    //    - door open/closed (bool)
     bool doorOpen = false;
-    //    - amount of cold/hot water (float)
     float waterTemperature = 77.f;
-    //    - drum rotation speed (double)
     double drumRotationSpeed = 27.6435;
-    //3 things it can do:
-    //    - seal in moisture 
+     
     void sealInMoisture();
-    //    - indicate type of laundry    // Indicates load characteristics
     int indicateTypeOfLaundry();
-    //    - optimize water temperature   // Adjusts water temperature based on load type
     float optimizeWaterTemp(int laundryType);
 };
 
 struct Refridgerator
 {
-    //5 properties:
-    //    - amount of ice cubes produced (int)
     int amtIceCubesPerHour = 25;
-    //    - crisper drawer humidity (float)
     float crisperDrawerHumidity = 0.f;
-    //    - water temperature (int)
     int waterTemp = 62;
-    //    - type of ice dispensed (int)
     int iceType = 2;
-    //    - thermostat set value (float)
     float fridgeTemp = 35.75;
-    //3 things it can do:
-    //    - optimize humidity level    // Adjusts crisper drawer humidity to optimum level for produce
+    
     float optimizeHumidityLevel();
-    //    - illuminate refridgerator   
     void illuminateRefridgerator(bool openDoor);
-    //    - indicate fridge temperature 
     float indicateFridgeTemp();
 };
 
 struct Display 
 {
-    //5 properties:
-    //    - brightness (double)
     double brightness = 87.35908;
-    //    - color mode (int)
     int colorMode = 3;
-    //    - x-scale (int)
     int xScale = 10;
-    //    - y-scale (int)
     int yScale = 15;
-    //    - refresh rate (double)
     double refreshRate = 200.0009;
-    //3 things it can do:
-    //    - select color mode    // Selects from array of color modes
+    
     int selectColorMode(int hue, int saturation);
-    //    - adjust illumination based on room     // Modifys display brightenss based on brightness in room
     double adjustIlluminationBasedOnRoom(double roomBrightness);
-    //    - adjust display characteristics    // Selects display preset based on desired screen settings (size of text, display size and other items)
     int adjustDisplayCharacteristics(int textSize, int orientation, float screenArea);
 };
 
 struct Controls 
 {
-    //5 properties:
-    //    - x-axis calibration (float)
     float xAxis = 12.f;
-    //    - y-axis calibration (float)
     float yAxis = 12.f;
-    //    - cursor speed (double)
     double cursorSpeed = 10.956;
-    //    - button (char)
     char button = 'B';
-    //    - button function assignment (int)
     int buttonFunction = 9;
 
     struct JoyStick
@@ -264,76 +246,47 @@ struct Controls
         std::string knobType = "Sphere";
         float height = 4.f;
 
-        double returnToCenter(double xActivePosition, double yActivePosition, bool release = true);    // Return joystick to center position when released
-        void moveVertically(double yActivePosition);
+        double returnToCenter(double xActivePosition, double yActivePosition, bool release = true);         void moveVertically(double yActivePosition);
         void moveHorizontally(double xActivePosition);
     };
 
-    //3 things it can do:
-    //    - assign button functionality
     void assignButtonFunctionality();
-    //    - delay compensation    // Calibrates control to combat latency
     float delayCompensation(float timeButtonPressed, float timeActionExecuted, JoyStick activeJoystick);
-    //    - adjust distance traveled    // Defines amount of movement needed to get from point A to point B based on amount of joystick movement
     double adjustDistanceTraveled(int xPointA, int yPointA, int xPointB, int yPointB, JoyStick activeJoystick);
 };
 
 struct ArcadeBox 
 {
-    //5 properties:
-    //    - storage location (int)
     int storageLocation = 0;
-    //    - number of openings (int)
     int numOpenings = 4;
-    //    - weight (float)
     float weight = 123.f;
-    //    - style (std::string)
     std::string style = "Upright";
-    //    - number of panels (int)
     int numPanels = 5;
-    //3 things it can do:
-    //    - store item here 
+     
     void storeItemHere(std::string storeableItem);
-    //    - open arcade box back panel
     void openArcadeBoxBackPanel();
-    //    - disassemblable and transport
     void disassembleAndTransport();
 };
 
 struct Speakers 
 {
-    //5 properties:
-    //    - volume (float)
     float volume = 9.f;
-    //    - input device (int)
     int inputDevice = 0;
-    //    - left speaker output (double)
     double SpeakerL = 5.0;
-    //    - right speaker output (double)
     double SpeakerR = 5.0;
-    //    - mono audio (int)
     int monoAudio = 0;
-    //3 things it can do:
-    //    - adjust volume    // Difference in initial volume setting and volume end value
+    
     double adjustVolume(double volumeKnobDiff);
-    //    - change input device
     void changeInputDevice();
-    //    - combine sound     // volume output mono-audio
     double combineSound(double SpeakerL, double SpeakerR);
 };
 
 struct CoinBox 
 {
-    //5 properties:
-    //    - coin return (bool)
     bool coinReturn = false;
-    //    - amount of coin stored (int)
     int amtCoinStored = 134;
-    //    - coin slot size (float)
     double coinSlotSize = 0.958;
-    //    - amount of change backed-up (int)
     int amtBackedUpChange = 2;
-    //    - coin detector switch (bool)
     bool quarterDetected = true;
 
     struct CoinSensor
@@ -346,15 +299,10 @@ struct CoinBox
 
         void inserted();
         void acceptCoin(int country, bool isDirty = false);
-        int creditApplied(int amountPerCredit, int amountSinceLastGameFinished, int currentCredit);    // Updates credits based on amount of coin inserted
-    };
+        int creditApplied(int amountPerCredit, int amountSinceLastGameFinished, int currentCredit);     };
 
-    //3 things it can do:
-    //    - detect type of coin inserted    // Indicate what type of coin was inserted based on height and weight
     int detectTypeOfCoinInserted(int coinHeight, int coinWeight);
-    //    - store change
     void storeChange();
-    //    - return coins when not accepted
     void returnCoinsWhenNotAccepted(CoinSensor penny);
 };
 
