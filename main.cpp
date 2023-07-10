@@ -127,15 +127,16 @@ struct Person
     unsigned int SATScore;
     int distanceTraveled;
 
-    void run(int howFast, int backFootLocation, int frontFootLocation, bool startWithLeftFoot);
+    void run(int howFast, bool startWithLeftFoot);
 
     Limb leftFoot;
     Limb rightFoot;
 };
 
-void Person::run(int, int backFootLocation, int frontFootLocation, bool startWithLeftFoot)
+void Person::run(int howFast, bool startWithLeftFoot)
 {
-    int strideLength = frontFootLocation - backFootLocation;
+    int strideLength = 3;
+    howFast = 0;
     
     if(startWithLeftFoot == true)
     {
@@ -175,7 +176,7 @@ void Person::run(int, int backFootLocation, int frontFootLocation, bool startWit
 
 struct VolumeKnob
 {
-    int amountTurned;
+    int amountTurned = 0;
 
     int turnRight(bool)
     {
@@ -253,13 +254,13 @@ float ElectricGuitar::adjustStringTension(bool tensionIncreased, float tremoloBa
 // UDT No. 3
 // 
 
-struct washerDryerDoor
+struct WasherDryerDoor
 {
-    void hotAirGasketEngage(){}
-    void waterGasketEngage(){}
+    void engageHotAirGasket(){}
+    void engageWaterGasket(){}
 };
 
-struct hybridWasherDryer
+struct HybridWasherDryer
 {
     float powerInAmps = 13.f;
     int cycleSelection = 8;
@@ -271,19 +272,19 @@ struct hybridWasherDryer
     int indicateTypeOfLaundry();
     float optimizeWaterTemp(int laundryType);
 
-    washerDryerDoor doorWhenDryer;
-    washerDryerDoor doorWhenWasher;
+    WasherDryerDoor doorWhenDryer;
+    WasherDryerDoor doorWhenWasher;
 };
 
-void hybridWasherDryer::sealInMoisture()
+void HybridWasherDryer::sealInMoisture()
 {
     if(cycleSelection < 4 && doorOpen == false)
     {
-        doorWhenDryer.hotAirGasketEngage();
+        doorWhenDryer.engageHotAirGasket();
     }
     else if(cycleSelection >= 4 && doorOpen == false)
     {
-        doorWhenWasher.waterGasketEngage();
+        doorWhenWasher.engageWaterGasket();
     }
     else
     {
@@ -407,8 +408,11 @@ double Speakers::combineSound(double SpeakerL, double SpeakerR)
 {
     double combinedOutput = 0.0;
     
-    if(monoAudio == 1) combinedOutput = 0.5 * (SpeakerL + SpeakerR);
-
+    if(monoAudio == 1) 
+    {
+        combinedOutput = 0.5 * (SpeakerL + SpeakerR);
+    }
+    
     return combinedOutput;
 }
 
@@ -420,13 +424,8 @@ double Speakers::combineSound(double SpeakerL, double SpeakerR)
 
 struct Coin 
 {
-    double coinDiameter = 0.0;
-    double coinWeight = 0.0;
-
-    bool inserted()
-    {
-        return true;
-    }
+    double diameter = 0.0;
+    double weight = 0.0;
 };
 
 struct CoinBox 
@@ -474,8 +473,11 @@ struct CoinBox
         }
         bool acceptCoin(int coinType)
         {
-            if(coinType == 0) return false;
-            else return true;
+            if(coinType == 0) 
+            {
+                return false;
+            }
+            return true;
         }
         int creditApplied(int amountPerCredit, int amountSinceLastGameFinished, int currentCredit);     
     };
@@ -490,7 +492,7 @@ struct CoinBox
 bool CoinBox::storeChange(CoinSensor coinSensor)
 {
     bool acceptCoin = false;
-    if (coin.inserted()) acceptCoin = coinSensor.acceptCoin(coinSensor.detectTypeOfCoinInserted(coin.coinWeight, coin.coinDiameter));
+    acceptCoin = coinSensor.acceptCoin(coinSensor.detectTypeOfCoinInserted(coin.weight, coin.diameter));
 
     return acceptCoin;
 }
