@@ -28,6 +28,7 @@ Thing: Car Wash
 
 #include <iostream>
 #include <string>
+#include <cmath>
 namespace Part1eVersion 
 {
 struct CarWash        
@@ -108,9 +109,47 @@ struct CarWash
     You'll need to insert the Person struct from the video in the space below.
  */
 
+struct Limb 
+{
+    void stepForward(){}
+    int stepSize(int strideLength)
+    {
+        return strideLength;
+    }
+};
 
+struct Person 
+{
+    int age;
+    int height;
+    float hairLength;
+    float GPA;
+    unsigned int SATScore;
+    int distanceTraveled;
 
+    void run(int howFast, bool startWithLeftFoot);
 
+    Limb leftFoot;
+    Limb rightFoot;
+};
+
+void Person::run(int howFast, bool startWithLeftFoot)
+{
+    int strideLength = 3;
+    howFast = 0;
+    
+    if(startWithLeftFoot == true)
+    {
+        leftFoot.stepForward();
+        rightFoot.stepForward();
+    }
+    else
+    {
+        rightFoot.stepForward();
+        leftFoot.stepForward();
+    }
+    distanceTraveled += leftFoot.stepSize(strideLength) + rightFoot.stepSize(strideLength);
+}
 
  /*
  2) provide implementations for the member functions you declared in your 10 user-defined types from the previous video outside of your UDT definitions.
@@ -131,130 +170,188 @@ struct CarWash
  This usually means you have to use identical types for all variables used in an expression that is producing that conversion warning.
  */
 
+// 
+// UDT No. 1 
+// 
+
+struct VolumeKnob
+{
+    int amountTurned = 0;
+
+    int turnRight(bool)
+    {
+        return amountTurned;
+    }
+};
 
 struct Keyboard 
 {
-    //5 properties:
-    //    - midi device (std::string)
     std::string midiDevice = "akai";
-    //    - volume (double)
-    double volume = 9.797;
-    //    - amount of modulation (float)
+    int volume = 9;
     float amtModulation = 2.f;
-    //    - number of keys (int)
     int numKeys = 88;
-    //    - sustain (double)
     double amtSustain = 4.66663;
-    //3 things it can do:
-    //    - adjust volume   // Difference in initial volume setting and volume end value
-    double adjustVolume(double volumeKnobDiff);
-    //    - pitch shift    // Shirt from initial pitch based on note played with no modulation
+    
+    void adjustVolume(int volumeKnobDiff);
     float pitchShift(float intendedPitch = 0);
-    //    - sustain
     void sustian();
+
+    VolumeKnob volumeKnob;
+};
+
+void Keyboard::adjustVolume(int volumeKnobDiff) 
+{
+    if(volumeKnob.turnRight(true) > 0)
+    {
+        volume += volumeKnobDiff;
+    }
+    else if(volumeKnob.turnRight(false) < 0)
+    {
+        volume -= volumeKnobDiff;
+    }
+}
+
+// 
+// UDT No. 2
+// 
+
+struct TremoloBar
+{
+    void lift(){}
+    void depress(){}
 };
 
 struct ElectricGuitar 
 {
-    //5 properties:
-    //    - amount of pickups (int) 
     int amtPickups = 2;
-    //    - tremolo bar position (int)
-    int tremoloBarPosition = -2;
-    //    - string vibration (double)
+    float tremoloBarPosition = 0.f;
     double stringVibration = 82.947;
-    //    - tone knob (int)
     int toneKnobPosition = 0;
-    //    - pickup selector (int)
     int pickupSelection = 3;
-    //3 things it can do:
-    //    - capture string vibrations
+    
     void captureStringVibrations();
-    //    - dial in/out treble frequencies    // Select treble frequency level
     int dialInOutTrebleFreq(int initToneValue);
-    //    - adjust string tension    // Returns difference of string tension before and after use of tremolo bar
-    float adjustStringTension(float initStringTension);
+    float adjustStringTension(bool, float tremoloBarPositionDifference);
+
+    TremoloBar tremoloBar;
 };
 
-struct WashingMachine 
+float ElectricGuitar::adjustStringTension(bool tensionIncreased, float tremoloBarPositionDifference)
 {
-    //5 properties:
-    //    - power supply (float)
+    if(tensionIncreased == true)
+    {
+        tremoloBar.lift();
+    }
+    else
+    {
+        tremoloBar.depress();
+    }
+    
+    return tremoloBarPosition += tremoloBarPositionDifference;
+}
+
+// 
+// UDT No. 3
+// 
+
+struct WasherDryerDoor
+{
+    void engageHotAirGasket(){}
+    void engageWaterGasket(){}
+};
+
+struct HybridWasherDryer
+{
     float powerInAmps = 13.f;
-    //    - cycle selection (int)
     int cycleSelection = 8;
-    //    - door open/closed (bool)
     bool doorOpen = false;
-    //    - amount of cold/hot water (float)
     float waterTemperature = 77.f;
-    //    - drum rotation speed (double)
     double drumRotationSpeed = 27.6435;
-    //3 things it can do:
-    //    - seal in moisture 
+     
     void sealInMoisture();
-    //    - indicate type of laundry    // Indicates load characteristics
     int indicateTypeOfLaundry();
-    //    - optimize water temperature   // Adjusts water temperature based on load type
     float optimizeWaterTemp(int laundryType);
+
+    WasherDryerDoor doorWhenDryer;
+    WasherDryerDoor doorWhenWasher;
+};
+
+void HybridWasherDryer::sealInMoisture()
+{
+    if(cycleSelection < 4 && doorOpen == false)
+    {
+        doorWhenDryer.engageHotAirGasket();
+    }
+    else if(cycleSelection >= 4 && doorOpen == false)
+    {
+        doorWhenWasher.engageWaterGasket();
+    }
+    else
+    {
+        std::cout << "Close the door.";
+    }
+}
+
+// 
+// UDT No. 4
+// 
+
+struct RefridgeratorDoor 
+{
+    void openDoor(){}
 };
 
 struct Refridgerator
 {
-    //5 properties:
-    //    - amount of ice cubes produced (int)
     int amtIceCubesPerHour = 25;
-    //    - crisper drawer humidity (float)
     float crisperDrawerHumidity = 0.f;
-    //    - water temperature (int)
     int waterTemp = 62;
-    //    - type of ice dispensed (int)
     int iceType = 2;
-    //    - thermostat set value (float)
     float fridgeTemp = 35.75;
-    //3 things it can do:
-    //    - optimize humidity level    // Adjusts crisper drawer humidity to optimum level for produce
+    bool lightUp = false;
+    
     float optimizeHumidityLevel();
-    //    - illuminate refridgerator   
-    void illuminateRefridgerator(bool openDoor);
-    //    - indicate fridge temperature 
+    bool illuminateRefridgerator(bool);
     float indicateFridgeTemp();
+
+    RefridgeratorDoor refridgeratorDoor;
 };
+
+bool Refridgerator::illuminateRefridgerator(bool lightOn)
+{
+    if(lightOn == false) refridgeratorDoor.openDoor();
+
+    return lightUp = true;
+}
+
+// 
+// UDT No. 5
+// 
 
 struct Display 
 {
-    //5 properties:
-    //    - brightness (double)
     double brightness = 87.35908;
-    //    - color mode (int)
     int colorMode = 3;
-    //    - x-scale (int)
     int xScale = 10;
-    //    - y-scale (int)
     int yScale = 15;
-    //    - refresh rate (double)
     double refreshRate = 200.0009;
-    //3 things it can do:
-    //    - select color mode    // Selects from array of color modes
+    
     int selectColorMode(int hue, int saturation);
-    //    - adjust illumination based on room     // Modifys display brightenss based on brightness in room
     double adjustIlluminationBasedOnRoom(double roomBrightness);
-    //    - adjust display characteristics    // Selects display preset based on desired screen settings (size of text, display size and other items)
     int adjustDisplayCharacteristics(int textSize, int orientation, float screenArea);
+    void storeItemInArcadeBox(){}
 };
 
 struct Controls 
 {
-    //5 properties:
-    //    - x-axis calibration (float)
-    float xAxis = 12.f;
-    //    - y-axis calibration (float)
-    float yAxis = 12.f;
-    //    - cursor speed (double)
-    double cursorSpeed = 10.956;
-    //    - button (char)
+    double xAxis = 0;
+    double yAxis = 0;
     char button = 'B';
-    //    - button function assignment (int)
     int buttonFunction = 9;
+
+    // 
+    // UDT No. 6
+    // 
 
     struct JoyStick
     {
@@ -263,100 +360,191 @@ struct Controls
         double yPosition = 0.0;
         std::string knobType = "Sphere";
         float height = 4.f;
+        int cursorSpeed = 1;
 
-        double returnToCenter(double xActivePosition, double yActivePosition, bool release = true);    // Return joystick to center position when released
+        double returnToCenter(double xActivePosition, double yActivePosition, bool release = true);
         void moveVertically(double yActivePosition);
         void moveHorizontally(double xActivePosition);
+        int getActiveCursorSpeed()
+        {
+            return cursorSpeed;
+        }
     };
 
-    //3 things it can do:
-    //    - assign button functionality
     void assignButtonFunctionality();
-    //    - delay compensation    // Calibrates control to combat latency
     float delayCompensation(float timeButtonPressed, float timeActionExecuted, JoyStick activeJoystick);
-    //    - adjust distance traveled    // Defines amount of movement needed to get from point A to point B based on amount of joystick movement
-    double adjustDistanceTraveled(int xPointA, int yPointA, int xPointB, int yPointB, JoyStick activeJoystick);
+    double adjustDistanceTraveled(int adjustmentAmount, double xPointA, double yPointA, double xPointB, double yPointB, JoyStick activeJoystick);
+    void storeItemInArcadeBox(){}
 };
 
-struct ArcadeBox 
+double Controls::adjustDistanceTraveled(int adjustedCursorSpeed, double xPointA, double yPointA, double xPointB, double yPointB, JoyStick activeJoystick)
 {
-    //5 properties:
-    //    - storage location (int)
-    int storageLocation = 0;
-    //    - number of openings (int)
-    int numOpenings = 4;
-    //    - weight (float)
-    float weight = 123.f;
-    //    - style (std::string)
-    std::string style = "Upright";
-    //    - number of panels (int)
-    int numPanels = 5;
-    //3 things it can do:
-    //    - store item here 
-    void storeItemHere(std::string storeableItem);
-    //    - open arcade box back panel
-    void openArcadeBoxBackPanel();
-    //    - disassemblable and transport
-    void disassembleAndTransport();
-};
+    double totalDifference = fabs((xPointB - xPointA) - (yPointB - yPointA));
+    
+    int activeCursorSpeed = activeJoystick.getActiveCursorSpeed();
+
+    return totalDifference *= (1 + (adjustedCursorSpeed - activeCursorSpeed));
+}
+
+// 
+// UDT No. 8
+// 
 
 struct Speakers 
 {
-    //5 properties:
-    //    - volume (float)
     float volume = 9.f;
-    //    - input device (int)
     int inputDevice = 0;
-    //    - left speaker output (double)
-    double SpeakerL = 5.0;
-    //    - right speaker output (double)
-    double SpeakerR = 5.0;
-    //    - mono audio (int)
+    double SpeakerLOutput = 5.0;
+    double SpeakerROutput = 5.0;
     int monoAudio = 0;
-    //3 things it can do:
-    //    - adjust volume    // Difference in initial volume setting and volume end value
+    
     double adjustVolume(double volumeKnobDiff);
-    //    - change input device
     void changeInputDevice();
-    //    - combine sound     // volume output mono-audio
     double combineSound(double SpeakerL, double SpeakerR);
+    void storeItemInArcadeBox(){}
+};
+
+double Speakers::combineSound(double SpeakerL, double SpeakerR)
+{
+    double combinedOutput = 0.0;
+    
+    if(monoAudio == 1) 
+    {
+        combinedOutput = 0.5 * (SpeakerL + SpeakerR);
+    }
+    
+    return combinedOutput;
+}
+
+
+
+// 
+// UDT No. 9
+// 
+
+struct Coin 
+{
+    double diameter = 0.0;
+    double weight = 0.0;
 };
 
 struct CoinBox 
 {
-    //5 properties:
-    //    - coin return (bool)
     bool coinReturn = false;
-    //    - amount of coin stored (int)
     int amtCoinStored = 134;
-    //    - coin slot size (float)
     double coinSlotSize = 0.958;
-    //    - amount of change backed-up (int)
     int amtBackedUpChange = 2;
-    //    - coin detector switch (bool)
     bool quarterDetected = true;
+
+    // 
+    // UDT No. 10
+    // 
 
     struct CoinSensor
     {
         bool isAQuarter = true;
         int amountInCents = 0;
-        float coinDiameter = 0.f;
-        float coinWeight = 0.f;
+        double coinDiameter = 0.00;
+        double coinWeight = 0.00;
         int creditToPlay = 3;
 
-        void inserted();
-        void acceptCoin(int country, bool isDirty = false);
-        int creditApplied(int amountPerCredit, int amountSinceLastGameFinished, int currentCredit);    // Updates credits based on amount of coin inserted
+        int detectTypeOfCoinInserted(double coinDiameterInches, double coinWeightGrams)
+        {
+            int coinType = 0;
+            
+            if((coinDiameterInches >= 0.74 || coinDiameterInches <= 0.76) && (coinWeightGrams >= 2.4 || coinWeightGrams <= 2.6))
+            {
+                coinType = 1;
+            }
+            else if((coinDiameterInches >= 0.695 || coinDiameterInches <= 0.715) && (coinWeightGrams >= 2.168 || coinWeightGrams <= 2.368))
+            {
+                coinType = 2;
+            }
+            else if((coinDiameterInches >= 0.825 || coinDiameterInches <= 0.845) && (coinWeightGrams >= 4.9 || coinWeightGrams <= 5.1))
+            {
+                coinType = 3;
+            }
+            else if((coinDiameterInches >= 0.945 || coinDiameterInches <= 0.965) && (coinWeightGrams >= 5.57 || coinWeightGrams <= 5.77))
+            {
+                coinType = 4;
+            }
+
+            return coinType;
+        }
+        bool acceptCoin(int coinType)
+        {
+            if(coinType == 0) 
+            {
+                return false;
+            }
+            return true;
+        }
+        int creditApplied(int amountPerCredit, int amountSinceLastGameFinished, int currentCredit);     
     };
 
-    //3 things it can do:
-    //    - detect type of coin inserted    // Indicate what type of coin was inserted based on height and weight
-    int detectTypeOfCoinInserted(int coinHeight, int coinWeight);
-    //    - store change
-    void storeChange();
-    //    - return coins when not accepted
-    void returnCoinsWhenNotAccepted(CoinSensor penny);
+    bool storeChange(CoinSensor coinSensor);
+    void returnCoinsWhenNotAccepted(CoinSensor coinSensor);
+    void storeItemInArcadeBox(){}
+
+    Coin coin;
 };
+
+bool CoinBox::storeChange(CoinSensor coinSensor)
+{
+    bool acceptCoin = false;
+    acceptCoin = coinSensor.acceptCoin(coinSensor.detectTypeOfCoinInserted(coin.weight, coin.diameter));
+
+    return acceptCoin;
+}
+
+// 
+// UDT No. 7
+// 
+
+struct ArcadeBox 
+{
+    int numOpenings = 4;
+    float weight = 123.f;
+    std::string style = "Upright";
+    int numPanels = 5;
+     
+    void storeItemHere(std::string storeableItem, int storageLocation);
+    void openArcadeBoxBackPanel();
+    void disassembleAndTransport();
+
+    CoinBox coinBox;
+    Display display;
+    Speakers speakers;
+    Controls controls;    
+};
+
+void ArcadeBox::storeItemHere(std::string storeableItem, int storageLocation)
+{
+    if(storageLocation >= 0 && storageLocation <= 3)
+    {
+        if(storageLocation == 0) 
+        {
+            coinBox.storeItemInArcadeBox();
+        }
+        else if(storageLocation == 1)
+        {
+            display.storeItemInArcadeBox();
+        }
+        else if(storageLocation == 2)
+        {
+            speakers.storeItemInArcadeBox();
+        }
+        else
+        {
+            controls.storeItemInArcadeBox();
+        }
+        std::cout << storeableItem + "successfully stored in location" + std::to_string(storageLocation);
+    }
+    else 
+    {
+        std::cout << "You can't store that here.";
+    }
+}
 
 
 
