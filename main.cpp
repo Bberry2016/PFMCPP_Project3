@@ -35,6 +35,8 @@
  */
 
 #include <iostream>
+#include <cmath>
+#include <vector>
 namespace Example 
 {
 struct UDT  // my user defined type named 'UDT'
@@ -71,11 +73,15 @@ int main()
 //insert Example::main() into main() of user's repo.
 
 
-
+// ONCE REVISITING
+// 1. Fill out remaining member functions
+// 2. Figure out how to instantiate member variables of a UDT within a UDT
+// (See 'Controls' struct)
 
 // 
 // UDT No. 1 
 // 
+
 
 struct VolumeKnob
 {
@@ -87,19 +93,50 @@ struct VolumeKnob
     }
 };
 
+struct PitchShifter
+{
+    int amountPushPull = 0;
+
+    int push(bool)
+    {
+        return amountPushPull;
+    }
+};
+
+struct SustainPedal
+{
+    bool pedalDepressedOrReleased(std::string pedalPosition)
+    {
+        if(pedalPosition == "depressed")
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    int fadeOut(int volume, int fadeTimeInSeconds)
+    {
+        int volumeIncrements = volume / fadeTimeInSeconds;
+        while(volume > 0)
+        {
+            volume -= volumeIncrements;
+        }
+        return volume;
+    }
+};
+
 struct Keyboard 
 {
     std::string midiDevice = "akai";
-    int volume = 9;
-    float amtModulation = 2.f;
-    int numKeys = 88;
-    double amtSustain = 4.66663;
+    int pitch = 0, volume = 0, amtSustain = 0, numKeys = 88;
     
     void adjustVolume(int volumeKnobDiff);
-    float pitchShift(float intendedPitch = 0);
-    void sustian();
+    void pitchShift(int pitchDiff);
+    void sustain();
 
     VolumeKnob volumeKnob;
+    PitchShifter pitchShifter;
+    SustainPedal sustainPedal;
 };
 
 void Keyboard::adjustVolume(int volumeKnobDiff) 
@@ -114,43 +151,120 @@ void Keyboard::adjustVolume(int volumeKnobDiff)
     }
 }
 
+void Keyboard::pitchShift(int pitchDiff)
+{
+    if(pitchShifter.push(true) > 0)
+    {
+        pitch += pitchDiff;
+    }
+    else if(pitchShifter.push(false) < 0)
+    {
+        pitch -= pitchDiff;
+    }
+}
+
+void Keyboard::sustain()
+{
+    if(sustainPedal.pedalDepressedOrReleased("depressed"))
+    {
+        amtSustain += 1;
+    }
+    else if(sustainPedal.pedalDepressedOrReleased("released"))
+    {
+        sustainPedal.fadeOut(volume, amtSustain);
+    }
+}
+
 // 
 // UDT No. 2
 // 
 
 struct TremoloBar
 {
-    void lift(){}
-    void depress(){}
+    float amountTension = 0.f;
+    
+    float lift(float adjustedTension);
+    float depress(float adjustedTension);
 };
+
+float TremoloBar::lift(float adjustedTension)
+{
+    amountTension += adjustedTension;
+    return amountTension;
+}
+
+float TremoloBar::depress(float adjustedTension)
+{
+    amountTension -= adjustedTension;
+    return amountTension;
+}
+
+struct Strings
+{
+    double stringVibration = 0.0;
+};
+
+struct Pickup
+{
+    Strings lowEString, aString, dString, gString, bString, highEString;
+    
+    std::vector<double> arrOfStringVibrationValues;
+
+    void captureStringVibrations();
+};
+
+void Pickup::captureStringVibrations()
+{
+    arrOfStringVibrationValues.push_back(lowEString.stringVibration);
+    arrOfStringVibrationValues.push_back(aString.stringVibration);
+    arrOfStringVibrationValues.push_back(dString.stringVibration);
+    arrOfStringVibrationValues.push_back(gString.stringVibration);
+    arrOfStringVibrationValues.push_back(bString.stringVibration);
+    arrOfStringVibrationValues.push_back(highEString.stringVibration);
+}
 
 struct ElectricGuitar 
 {
     int amtPickups = 2;
     float tremoloBarPosition = 0.f;
-    double stringVibration = 82.947;
     int toneKnobPosition = 0;
     int pickupSelection = 3;
-    
-    void captureStringVibrations();
-    int dialInOutTrebleFreq(int initToneValue);
-    float adjustStringTension(bool, float tremoloBarPositionDifference);
+
+    void strum();
+    int dialInOutTrebleFreq(int toneAdjustmentValue);
+    float adjustStringTension(bool, bool, float adjustedTremoloBarPosition, float amountTension);
 
     TremoloBar tremoloBar;
+    Pickup singleCoil;
 };
 
-float ElectricGuitar::adjustStringTension(bool tensionIncreased, float tremoloBarPositionDifference)
+void ElectricGuitar::strum()
+{
+    singleCoil.captureStringVibrations();
+}
+
+int ElectricGuitar::dialInOutTrebleFreq(int toneAdjustmentValue)
+{
+    toneKnobPosition += toneAdjustmentValue;
+    return toneKnobPosition;
+}
+
+float ElectricGuitar::adjustStringTension(bool tensionIncreased, bool tensionDecreased, float adjustedTremoloBarPosition, float amountTension)
 {
     if(tensionIncreased == true)
     {
-        tremoloBar.lift();
+        adjustedTremoloBarPosition += tremoloBar.lift(amountTension);
+    }
+    else if(tensionDecreased == true)
+    {
+        adjustedTremoloBarPosition -= tremoloBar.depress(amountTension);
     }
     else
     {
-        tremoloBar.depress();
+        adjustedTremoloBarPosition = 0;
     }
-    
-    return tremoloBarPosition += tremoloBarPositionDifference;
+
+    return adjustedTremoloBarPosition;
 }
 
 // 
@@ -165,12 +279,11 @@ struct WasherDryerDoor
 
 struct HybridWasherDryer
 {
-    float powerInAmps = 13.f;
-    int cycleSelection = 8;
-    bool doorOpen = false;
-    float waterTemperature = 77.f;
-    double drumRotationSpeed = 27.6435;
-     
+    int cycleSelection;
+    float powerInAmps, waterTemperature;
+    double drumRotationSpeed;
+    bool doorOpen;
+
     void sealInMoisture();
     int indicateTypeOfLaundry();
     float optimizeWaterTemp(int laundryType);
@@ -206,12 +319,9 @@ struct RefridgeratorDoor
 
 struct Refridgerator
 {
-    int amtIceCubesPerHour = 25;
-    float crisperDrawerHumidity = 0.f;
-    int waterTemp = 62;
-    int iceType = 2;
-    float fridgeTemp = 35.75;
-    bool lightUp = false;
+    int amtIceCubesPerHour, waterTemp, iceType;
+    float crisperDrawerHumidity, fridgeTemp;
+    bool lightUp;
     
     float optimizeHumidityLevel();
     bool illuminateRefridgerator(bool);
@@ -233,11 +343,8 @@ bool Refridgerator::illuminateRefridgerator(bool lightOn)
 
 struct Display 
 {
-    double brightness = 87.35908;
-    int colorMode = 3;
-    int xScale = 10;
-    int yScale = 15;
-    double refreshRate = 200.0009;
+    int colorMode, xScale, yScale;
+    double refreshRate, brightness;
     
     int selectColorMode(int hue, int saturation);
     double adjustIlluminationBasedOnRoom(double roomBrightness);
@@ -247,10 +354,9 @@ struct Display
 
 struct Controls 
 {
-    double xAxis = 0;
-    double yAxis = 0;
-    char button = 'B';
-    int buttonFunction = 9;
+    double xAxis, yAxis;
+    char button;
+    int buttonFunction;
 
     // 
     // UDT No. 6
