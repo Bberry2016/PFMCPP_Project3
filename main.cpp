@@ -37,6 +37,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <map>
 namespace Example 
 {
 struct UDT  // my user defined type named 'UDT'
@@ -279,14 +280,15 @@ struct WasherDryerDoor
 
 struct HybridWasherDryer
 {
-    int cycleSelection;
+    int currentCycleSelection;
     float powerInAmps, waterTemperature;
     double drumRotationSpeed;
     bool doorOpen;
+    std::vector<std::string> laundryType = {"Whites", "Jeans", "Undergarments", "Soiled", "Blankets", "Colors"};
 
     void sealInMoisture();
-    int indicateTypeOfLaundry();
-    float optimizeWaterTemp(int laundryType);
+    std::string indicateTypeOfLaundryCycle(size_t cycleSelection);
+    std::string optimiumWaterTemp(size_t laundryTypeIndex);
 
     WasherDryerDoor doorWhenDryer;
     WasherDryerDoor doorWhenWasher;
@@ -294,17 +296,42 @@ struct HybridWasherDryer
 
 void HybridWasherDryer::sealInMoisture()
 {
-    if(cycleSelection < 4 && doorOpen == false)
+    if(currentCycleSelection >= 4 && doorOpen == false)
     {
         doorWhenDryer.engageHotAirGasket();
     }
-    else if(cycleSelection >= 4 && doorOpen == false)
+    else if(currentCycleSelection < 4 && doorOpen == false)
     {
         doorWhenWasher.engageWaterGasket();
     }
     else
     {
         std::cout << "Close the door.";
+    }
+}
+
+std::string HybridWasherDryer::indicateTypeOfLaundryCycle(size_t cycleSelection)
+{
+    std::vector<std::string> cycles = {"Normal Wash", "Quick Wash", "Heavy Wash", "Normal Dry", "Quick Dry", "Tumble"};
+
+    return cycles[cycleSelection];
+}
+
+std::string HybridWasherDryer::optimiumWaterTemp(size_t laundryTypeIndex)
+{
+    if(laundryType[laundryTypeIndex] == "Whites" || 
+        laundryType[laundryTypeIndex] == "Soiled" || 
+        laundryType[laundryTypeIndex] == "Undergarments")
+    {
+        return "Hot";
+    }
+    else if(laundryType[laundryTypeIndex] == "Jeans")
+    {
+        return "Warm";
+    }
+    else 
+    {
+        return "Cold";
     }
 }
 
